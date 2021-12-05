@@ -1,5 +1,13 @@
+# EasyTranslatorFront
 
+Connects with EasyTranslatorAPI at https://localhost::49155 and allows to translate sentences from English, French and German to any other of those
 
-docker build -f Dockerfile.prod -t easytranslator:front .
+How to run:
 
-docker run -it --rm -p 1337:80 easytranslator:front
+1) clone repository
+
+2) docker build -f Dockerfile.prod -t easytranslator:front .
+
+3) docker run -it --rm -p 1337:80 easytranslator:front
+
+4) open browser at http://localhost:1337/
