@@ -7,7 +7,7 @@ import { Button, Paper, TextField,FormControl, InputLabel, Select, MenuItem } fr
 
 function CallAPI(sourceLanguage,targetLanguage,sourceText) {
 
-  return fetch('https://localhost:49155/api/v1/Translate?sourceLanguage='+sourceLanguage+'&targetLanguage='+targetLanguage+'&sourceText='+sourceText, { method: 'GET', mode: 'cors' })
+  return fetch('http://localhost:49156/api/v1/Translate?sourceLanguage='+sourceLanguage+'&targetLanguage='+targetLanguage+'&sourceText='+sourceText, { method: 'GET', mode: 'cors' })
   .then(data => data.json());
 
 }
