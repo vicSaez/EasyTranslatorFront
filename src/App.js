@@ -7,7 +7,7 @@ import { Button, Paper, TextField,FormControl, InputLabel, Select, MenuItem } fr
 
 function CallAPI(sourceLanguage,targetLanguage,sourceText) {
 
-  return fetch('http://localhost:49156/api/v1/Translate?sourceLanguage='+sourceLanguage+'&targetLanguage='+targetLanguage+'&sourceText='+sourceText, { method: 'GET', mode: 'cors' })
+  return fetch(`http://localhost:49156/api/v1/Translate?sourceLanguage=${sourceLanguage}&targetLanguage=${targetLanguage}&sourceText=${sourceText}`, { method: 'GET', mode: 'cors' })
   .then(data => data.json());
 
 }
@@ -18,9 +18,19 @@ export default function App() {
   const [targetText, setTargetText] = React.useState('');
   const [sourceLanguage, setSourceLanguage] = React.useState('auto');
   const [targetLanguage, setTargetLanguage] = React.useState('de');
+  const [isFormInvalid, setIsFormInvalid] = React.useState(true);
+
+  const validate = (value) => {
+    if ( value !== "") {
+      setIsFormInvalid(false);
+    } else {
+      setIsFormInvalid(true);
+    }
+  };
   
   const handleSorceTextChange = (event) => {
     setSourceText(event.target.value);
+    validate(event.target.value);
   };
 
   const handleSourceLanguageChange = (event) => {
@@ -32,8 +42,7 @@ export default function App() {
   };
 
   const translateClick = () => {
-    CallAPI(sourceLanguage,targetLanguage,sourceText).then( (json) => {setTargetText(json.targetText);}); //JSON.stringify(json)
-    
+    CallAPI(sourceLanguage,targetLanguage,sourceText).then( (json) => {setTargetText(json.targetText);}); //JSON.stringify(json)    
   }
 
   return (
@@ -91,7 +100,7 @@ export default function App() {
         </FormControl>
         </Box>
         <Box sx={{p:1}}>
-          <Button variant="contained" color="primary" onClick={translateClick}>
+          <Button variant="contained" color="primary" onClick={translateClick} disabled={isFormInvalid}>
           Translate
           </Button>
         </Box>
